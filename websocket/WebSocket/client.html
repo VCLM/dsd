@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket Cliente</title>
+</head>
+<body>
+  <script>
+    const socket = new WebSocket('ws://localhost:8080');
+
+    socket.onopen = function(event) {
+      console.log('Conexão estabelecida com sucesso!');
+      
+      // Exemplo: Enviando uma mensagem para o servidor assim que a conexão é estabelecida
+      socket.send('Olá, servidor!');
+    };
+
+    socket.onmessage = function(event) {
+      console.log('Recebido do servidor:', event.data);
+    };
+    
+    // Exemplo: Enviando uma mensagem para o servidor quando um botão for clicado
+    document.getElementById('sendButton').addEventListener('click', function() {
+      const message = document.getElementById('messageInput').value;
+      socket.send(message);
+    });
+  </script>
+  
+  <input type="text" id="messageInput" placeholder="Digite uma mensagem">
+  <button id="sendButton">Enviar</button>
+</body>
+</html>
